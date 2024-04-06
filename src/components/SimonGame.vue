@@ -121,7 +121,17 @@ export default {
     <div v-else-if="!isLose">
       <div class="simon_game-mode">
         <span>Mode: {{ gameMode }}</span>
-        <button @click="gameMode = null" class="simon_start_btn">
+        <button
+          @click="
+            () => {
+              gameMode = null;
+              level = 0;
+              scope = 0;
+              isLose = false;
+            }
+          "
+          class="simon_start_btn"
+        >
           Change mode
         </button>
         <button v-show="level === 0" @click="startGame" class="simon_start_btn">
@@ -133,29 +143,31 @@ export default {
         <span>Scope: {{ scope }}</span>
       </div>
     </div>
-    <div v-show="gameMode && !isLose">
-      <div id="simon" :class="{ 'not-clickable': !this.playingSoundsInterval }">
-        <button
-          class="simon_btn blue"
-          @click="clickSimonBtn(0)"
-          :class="{ active: activeButton === 0 }"
-        />
-        <button
-          class="simon_btn red"
-          @click="clickSimonBtn(1)"
-          :class="{ active: activeButton === 1 }"
-        />
-        <button
-          class="simon_btn green"
-          @click="clickSimonBtn(2)"
-          :class="{ active: activeButton === 2 }"
-        />
-        <button
-          class="simon_btn yellow"
-          @click="clickSimonBtn(3)"
-          :class="{ active: activeButton === 3 }"
-        />
-      </div>
+    <div
+      id="simon"
+      :class="{ 'not-clickable': !this.playingSoundsInterval }"
+      v-show="gameMode && !isLose"
+    >
+      <button
+        class="simon_btn blue"
+        @click="clickSimonBtn(0)"
+        :class="{ active: activeButton === 0 }"
+      />
+      <button
+        class="simon_btn red"
+        @click="clickSimonBtn(1)"
+        :class="{ active: activeButton === 1 }"
+      />
+      <button
+        class="simon_btn green"
+        @click="clickSimonBtn(2)"
+        :class="{ active: activeButton === 2 }"
+      />
+      <button
+        class="simon_btn yellow"
+        @click="clickSimonBtn(3)"
+        :class="{ active: activeButton === 3 }"
+      />
     </div>
     <div v-show="gameMode && isLose" class="simon_lose">
       <h2>You lose</h2>
@@ -183,8 +195,10 @@ export default {
   flex-wrap: nowrap;
 }
 #simon {
-  width: 600px;
-  height: 600px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 600px;
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -244,9 +258,11 @@ export default {
   filter: brightness(0.6);
   transform: scale(0.9);
 }
-.not-clickable .simon_btn:not(:active):hover {
-  border: 1px solid var(--color-border-hover);
-  filter: brightness(0.6);
+@media (hover: hover) {
+  .not-clickable .simon_btn:not(:active):hover {
+    border: 1px solid var(--color-border-hover);
+    filter: brightness(0.6);
+  }
 }
 .simon_game-mode {
   display: grid;
