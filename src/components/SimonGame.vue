@@ -91,10 +91,10 @@ export default {
   },
   mounted() {
     this.sounds = [
-      new Sound("/sounds/do.mp3"),
-      new Sound("/sounds/lya.mp3"),
-      new Sound("/sounds/si.mp3"),
-      new Sound("/sounds/sol.mp3"),
+      new Sound(import.meta.env.BASE_URL + "/sounds/do.mp3"),
+      new Sound(import.meta.env.BASE_URL + "/sounds/lya.mp3"),
+      new Sound(import.meta.env.BASE_URL + "/sounds/si.mp3"),
+      new Sound(import.meta.env.BASE_URL + "/sounds/sol.mp3"),
     ];
   },
 };
