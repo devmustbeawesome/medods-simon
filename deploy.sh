@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
-
+echo "deploying..."
 set -e
-npm run build
+npx vite build --base=/medods-simon/
 cd dist
 git init
 git add -A
